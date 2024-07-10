@@ -1,0 +1,15 @@
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\bin\Debug\net6.0\TareasPendentes.exe
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\bin\Debug\net6.0\TareasPendentes.deps.json
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\bin\Debug\net6.0\TareasPendentes.runtimeconfig.json
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\bin\Debug\net6.0\TareasPendentes.dll
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\bin\Debug\net6.0\TareasPendentes.pdb
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.csproj.AssemblyReference.cache
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.AssemblyInfoInputs.cache
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.AssemblyInfo.cs
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.csproj.CoreCompileInputs.cache
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.dll
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\refint\TareasPendentes.dll
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.pdb
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\TareasPendentes.genruntimeconfig.cache
+C:\Users\victo\Documents\GitHub\Especializacion\EstilosArquitectura\Agentes\TareasPendentes\TareasPendentes\obj\Debug\net6.0\ref\TareasPendentes.dll
