@@ -1,1 +1,3 @@
 # EstilosArquitectura
+
+Encontraremos lo siguiente:
