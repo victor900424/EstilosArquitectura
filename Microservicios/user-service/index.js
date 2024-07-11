@@ -3,9 +3,9 @@ const app = express();
 const PORT = 3001;
 
 app.get('/users', (req, res) => {
-  res.json([{ id: 1, name: 'John Doe' }]);
+  res.json([{ id: 1, name: 'Juan Camilo' }]);
 });
 
 app.listen(PORT, () => {
-  console.log(`User service listening on port ${PORT}`);
+  console.log(`Servicio de usuario escuchando en el puerto ${PORT}`);
 });
