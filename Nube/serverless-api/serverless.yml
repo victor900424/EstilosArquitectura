@@ -7,18 +7,15 @@ provider:
   stage: 'dev'
 
 functions:
-  auth:
-    handler: handler.auth
-    events:
-      - http:
-          path: auth/login
-          method: post
   product:
     handler: handler.product
     events:
       - http:
           path: products
           method: get
+  user:
+    handler: handler.user
+    events:
       - http:
-          path: products
-          method: post
+          path: users
+          method: get

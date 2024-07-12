@@ -90,16 +90,16 @@
                 }
               }
             },
-            "AuthLogGroup": {
-              "Type": "AWS::Logs::LogGroup",
-              "Properties": {
-                "LogGroupName": "/aws/lambda/serverless-api-dev-auth"
-              }
-            },
             "ProductLogGroup": {
               "Type": "AWS::Logs::LogGroup",
               "Properties": {
                 "LogGroupName": "/aws/lambda/serverless-api-dev-product"
+              }
+            },
+            "UserLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/serverless-api-dev-user"
               }
             },
             "IamRoleLambdaExecution": {
@@ -180,31 +180,6 @@
                 }
               }
             },
-            "AuthLambdaFunction": {
-              "Type": "AWS::Lambda::Function",
-              "Properties": {
-                "Code": {
-                  "S3Bucket": {
-                    "Ref": "ServerlessDeploymentBucket"
-                  },
-                  "S3Key": "serverless/serverless-api/dev/1720744039788-2024-07-12T00:27:19.788Z/serverless-api.zip"
-                },
-                "Handler": "handler.auth",
-                "Runtime": "nodejs20.x",
-                "FunctionName": "serverless-api-dev-auth",
-                "MemorySize": 1024,
-                "Timeout": 6,
-                "Role": {
-                  "Fn::GetAtt": [
-                    "IamRoleLambdaExecution",
-                    "Arn"
-                  ]
-                }
-              },
-              "DependsOn": [
-                "AuthLogGroup"
-              ]
-            },
             "ProductLambdaFunction": {
               "Type": "AWS::Lambda::Function",
               "Properties": {
@@ -212,7 +187,7 @@
                   "S3Bucket": {
                     "Ref": "ServerlessDeploymentBucket"
                   },
-                  "S3Key": "serverless/serverless-api/dev/1720744039788-2024-07-12T00:27:19.788Z/serverless-api.zip"
+                  "S3Key": "serverless/serverless-api/dev/1720749988389-2024-07-12T02:06:28.389Z/serverless-api.zip"
                 },
                 "Handler": "handler.product",
                 "Runtime": "nodejs20.x",
@@ -230,24 +205,49 @@
                 "ProductLogGroup"
               ]
             },
-            "AuthLambdaVersionCvqieW2KSv0UZnpzxV0M6HTJ0YPgKag1M8vkMgocE": {
-              "Type": "AWS::Lambda::Version",
-              "DeletionPolicy": "Retain",
+            "UserLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
               "Properties": {
-                "FunctionName": {
-                  "Ref": "AuthLambdaFunction"
+                "Code": {
+                  "S3Bucket": {
+                    "Ref": "ServerlessDeploymentBucket"
+                  },
+                  "S3Key": "serverless/serverless-api/dev/1720749988389-2024-07-12T02:06:28.389Z/serverless-api.zip"
                 },
-                "CodeSha256": "YEOXcfmU5pDlYJHn1zMlMLQ6zTiFgIw+meA+Xw5CwjE="
-              }
+                "Handler": "handler.user",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "serverless-api-dev-user",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "UserLogGroup"
+              ]
             },
-            "ProductLambdaVersionL4kso0EzQqMv0P0RExIEGaUaMLvY3s0FzEtA0rxxVc": {
+            "ProductLambdaVersionzDqAouf87t706205PIqYKLhyJjZQhCwWCo8UZd0wg": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "ProductLambdaFunction"
                 },
-                "CodeSha256": "YEOXcfmU5pDlYJHn1zMlMLQ6zTiFgIw+meA+Xw5CwjE="
+                "CodeSha256": "9GTNnn4Yh2VyfmdDzxQmyoA7rWOxLGDIoFFV+XuWNX4="
+              }
+            },
+            "UserLambdaVersionaUrMDyg4ixcqgHjblsuxkoZxTBjyEsSV6yYfCuw": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "UserLambdaFunction"
+                },
+                "CodeSha256": "9GTNnn4Yh2VyfmdDzxQmyoA7rWOxLGDIoFFV+XuWNX4="
               }
             },
             "ApiGatewayRestApi": {
@@ -260,33 +260,6 @@
                   ]
                 },
                 "Policy": ""
-              }
-            },
-            "ApiGatewayResourceAuth": {
-              "Type": "AWS::ApiGateway::Resource",
-              "Properties": {
-                "ParentId": {
-                  "Fn::GetAtt": [
-                    "ApiGatewayRestApi",
-                    "RootResourceId"
-                  ]
-                },
-                "PathPart": "auth",
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                }
-              }
-            },
-            "ApiGatewayResourceAuthLogin": {
-              "Type": "AWS::ApiGateway::Resource",
-              "Properties": {
-                "ParentId": {
-                  "Ref": "ApiGatewayResourceAuth"
-                },
-                "PathPart": "login",
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                }
               }
             },
             "ApiGatewayResourceProducts": {
@@ -304,51 +277,20 @@
                 }
               }
             },
-            "ApiGatewayMethodAuthLoginPost": {
-              "Type": "AWS::ApiGateway::Method",
+            "ApiGatewayResourceUsers": {
+              "Type": "AWS::ApiGateway::Resource",
               "Properties": {
-                "HttpMethod": "POST",
-                "RequestParameters": {},
-                "ResourceId": {
-                  "Ref": "ApiGatewayResourceAuthLogin"
+                "ParentId": {
+                  "Fn::GetAtt": [
+                    "ApiGatewayRestApi",
+                    "RootResourceId"
+                  ]
                 },
+                "PathPart": "users",
                 "RestApiId": {
                   "Ref": "ApiGatewayRestApi"
-                },
-                "ApiKeyRequired": "<REDACTED>",
-                "AuthorizationType": "NONE",
-                "Integration": {
-                  "IntegrationHttpMethod": "POST",
-                  "Type": "AWS_PROXY",
-                  "Uri": {
-                    "Fn::Join": [
-                      "",
-                      [
-                        "arn:",
-                        {
-                          "Ref": "AWS::Partition"
-                        },
-                        ":apigateway:",
-                        {
-                          "Ref": "AWS::Region"
-                        },
-                        ":lambda:path/2015-03-31/functions/",
-                        {
-                          "Fn::GetAtt": [
-                            "AuthLambdaFunction",
-                            "Arn"
-                          ]
-                        },
-                        "/invocations"
-                      ]
-                    ]
-                  }
-                },
-                "MethodResponses": []
-              },
-              "DependsOn": [
-                "AuthLambdaPermissionApiGateway"
-              ]
+                }
+              }
             },
             "ApiGatewayMethodProductsGet": {
               "Type": "AWS::ApiGateway::Method",
@@ -396,13 +338,13 @@
                 "ProductLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayMethodProductsPost": {
+            "ApiGatewayMethodUsersGet": {
               "Type": "AWS::ApiGateway::Method",
               "Properties": {
-                "HttpMethod": "POST",
+                "HttpMethod": "GET",
                 "RequestParameters": {},
                 "ResourceId": {
-                  "Ref": "ApiGatewayResourceProducts"
+                  "Ref": "ApiGatewayResourceUsers"
                 },
                 "RestApiId": {
                   "Ref": "ApiGatewayRestApi"
@@ -427,7 +369,7 @@
                         ":lambda:path/2015-03-31/functions/",
                         {
                           "Fn::GetAtt": [
-                            "ProductLambdaFunction",
+                            "UserLambdaFunction",
                             "Arn"
                           ]
                         },
@@ -439,10 +381,10 @@
                 "MethodResponses": []
               },
               "DependsOn": [
-                "ProductLambdaPermissionApiGateway"
+                "UserLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1720744033892": {
+            "ApiGatewayDeployment1720749978743": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -451,17 +393,16 @@
                 "StageName": "dev"
               },
               "DependsOn": [
-                "ApiGatewayMethodAuthLoginPost",
                 "ApiGatewayMethodProductsGet",
-                "ApiGatewayMethodProductsPost"
+                "ApiGatewayMethodUsersGet"
               ]
             },
-            "AuthLambdaPermissionApiGateway": {
+            "ProductLambdaPermissionApiGateway": {
               "Type": "AWS::Lambda::Permission",
               "Properties": {
                 "FunctionName": {
                   "Fn::GetAtt": [
-                    "AuthLambdaFunction",
+                    "ProductLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -493,12 +434,12 @@
                 }
               }
             },
-            "ProductLambdaPermissionApiGateway": {
+            "UserLambdaPermissionApiGateway": {
               "Type": "AWS::Lambda::Permission",
               "Properties": {
                 "FunctionName": {
                   "Fn::GetAtt": [
-                    "ProductLambdaFunction",
+                    "UserLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -540,22 +481,22 @@
                 "Name": "sls-serverless-api-dev-ServerlessDeploymentBucketName"
               }
             },
-            "AuthLambdaFunctionQualifiedArn": {
-              "Description": "Current Lambda function version",
-              "Value": {
-                "Ref": "AuthLambdaVersionCvqieW2KSv0UZnpzxV0M6HTJ0YPgKag1M8vkMgocE"
-              },
-              "Export": {
-                "Name": "sls-serverless-api-dev-AuthLambdaFunctionQualifiedArn"
-              }
-            },
             "ProductLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "ProductLambdaVersionL4kso0EzQqMv0P0RExIEGaUaMLvY3s0FzEtA0rxxVc"
+                "Ref": "ProductLambdaVersionzDqAouf87t706205PIqYKLhyJjZQhCwWCo8UZd0wg"
               },
               "Export": {
                 "Name": "sls-serverless-api-dev-ProductLambdaFunctionQualifiedArn"
+              }
+            },
+            "UserLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "UserLambdaVersionaUrMDyg4ixcqgHjblsuxkoZxTBjyEsSV6yYfCuw"
+              },
+              "Export": {
+                "Name": "sls-serverless-api-dev-UserLambdaFunctionQualifiedArn"
               }
             },
             "ServiceEndpoint": {
@@ -671,25 +612,6 @@
         "vpc": {}
       },
       "functions": {
-        "auth": {
-          "handler": "handler.auth",
-          "events": [
-            {
-              "http": {
-                "path": "auth/login",
-                "method": "post",
-                "integration": "AWS_PROXY"
-              }
-            }
-          ],
-          "name": "serverless-api-dev-auth",
-          "package": {},
-          "memory": 1024,
-          "timeout": 6,
-          "runtime": "nodejs20.x",
-          "vpc": {},
-          "versionLogicalId": "AuthLambdaVersionCvqieW2KSv0UZnpzxV0M6HTJ0YPgKag1M8vkMgocE"
-        },
         "product": {
           "handler": "handler.product",
           "events": [
@@ -697,13 +619,6 @@
               "http": {
                 "path": "products",
                 "method": "get",
-                "integration": "AWS_PROXY"
-              }
-            },
-            {
-              "http": {
-                "path": "products",
-                "method": "post",
                 "integration": "AWS_PROXY"
               }
             }
@@ -714,11 +629,30 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "ProductLambdaVersionL4kso0EzQqMv0P0RExIEGaUaMLvY3s0FzEtA0rxxVc"
+          "versionLogicalId": "ProductLambdaVersionzDqAouf87t706205PIqYKLhyJjZQhCwWCo8UZd0wg"
+        },
+        "user": {
+          "handler": "handler.user",
+          "events": [
+            {
+              "http": {
+                "path": "users",
+                "method": "get",
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "serverless-api-dev-user",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "UserLambdaVersionaUrMDyg4ixcqgHjblsuxkoZxTBjyEsSV6yYfCuw"
         }
       }
     },
-    "serviceRawFile": "service: serverless-api\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  region: us-east-1\r\n  stage: 'dev'\r\n\r\nfunctions:\r\n  auth:\r\n    handler: handler.auth\r\n    events:\r\n      - http:\r\n          path: auth/login\r\n          method: post\r\n  product:\r\n    handler: handler.product\r\n    events:\r\n      - http:\r\n          path: products\r\n          method: get\r\n      - http:\r\n          path: products\r\n          method: post\r\n",
+    "serviceRawFile": "service: serverless-api\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  region: us-east-1\r\n  stage: 'dev'\r\n\r\nfunctions:\r\n  product:\r\n    handler: handler.product\r\n    events:\r\n      - http:\r\n          path: products\r\n          method: get\r\n  user:\r\n    handler: handler.user\r\n    events:\r\n      - http:\r\n          path: users\r\n          method: get\r\n",
     "command": [
       "deploy"
     ],
@@ -747,32 +681,32 @@
     "serviceProviderAwsAccountId": "944953072885",
     "versionSf": "4.1.12",
     "serviceProviderAwsCfStackName": "serverless-api-dev",
-    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:944953072885:stack/serverless-api-dev/1c02be90-3fe4-11ef-89ca-0e1b1e9e1fd7",
-    "serviceProviderAwsCfStackCreated": "2024-07-12T00:17:22.733Z",
-    "serviceProviderAwsCfStackUpdated": "2024-07-12T00:27:28.007Z",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:944953072885:stack/serverless-api-dev/8cb878b0-3ff2-11ef-a044-12a09ea5ab03",
+    "serviceProviderAwsCfStackCreated": "2024-07-12T02:00:44.797Z",
+    "serviceProviderAwsCfStackUpdated": "2024-07-12T02:06:37.262Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
-        "OutputKey": "AuthLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:944953072885:function:serverless-api-dev-auth:3",
-        "Description": "Current Lambda function version",
-        "ExportName": "sls-serverless-api-dev-AuthLambdaFunctionQualifiedArn"
-      },
-      {
         "OutputKey": "ProductLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:944953072885:function:serverless-api-dev-product:3",
+        "OutputValue": "arn:aws:lambda:us-east-1:944953072885:function:serverless-api-dev-product:10",
         "Description": "Current Lambda function version",
         "ExportName": "sls-serverless-api-dev-ProductLambdaFunctionQualifiedArn"
       },
       {
+        "OutputKey": "UserLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:944953072885:function:serverless-api-dev-user:8",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-serverless-api-dev-UserLambdaFunctionQualifiedArn"
+      },
+      {
         "OutputKey": "ServiceEndpoint",
-        "OutputValue": "https://51h01iij8f.execute-api.us-east-1.amazonaws.com/dev",
+        "OutputValue": "https://081kglftuh.execute-api.us-east-1.amazonaws.com/dev",
         "Description": "URL of the service endpoint",
         "ExportName": "sls-serverless-api-dev-ServiceEndpoint"
       },
       {
         "OutputKey": "ServerlessDeploymentBucketName",
-        "OutputValue": "serverless-api-dev-serverlessdeploymentbucket-tkxzgqzoc7da",
+        "OutputValue": "serverless-api-dev-serverlessdeploymentbucket-l8gtz5zeomna",
         "ExportName": "sls-serverless-api-dev-ServerlessDeploymentBucketName"
       }
     ]
